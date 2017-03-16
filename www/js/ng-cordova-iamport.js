@@ -60,8 +60,12 @@ var inAppBrowserRef;
           }
         });
 
+        var flag = false;
         inAppBrowserRef.addEventListener('loadstop', function (event) {
           if ((event.url).indexOf(payment_url) > -1) {
+            if (flag)
+              return;
+            flag = true;
             var iamport_script = "IMP.init('" + user_code + "');\n";
             iamport_script += "IMP.request_pay(" + JSON.stringify(param) + ")";
 
